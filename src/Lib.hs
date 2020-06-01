@@ -49,3 +49,42 @@ caloriasObeso :: Float -> Float
 caloriasObeso cantidad =  cantidad / 150
 
 --PUNTO 3 
+
+caminataEnCinta :: Ejercicio
+caminataEnCinta minutos gimnasta= quemarCalorias gimnasta (promedioCantidadMinutos minutos)
+
+entrenamientoEnCinta :: Ejercicio
+entrenamientoEnCinta minutos gimnasta = quemarCalorias gimnasta (promedioSegunVelocidadMaxima minutos)
+
+type KgALevantar = Float
+
+pesas ::  KgALevantar -> Ejercicio
+pesas kg minutos  = tonificar (cantidadATonificar kg minutos) 
+
+type Inclinacion = Float
+
+colina :: Inclinacion -> Ejercicio
+colina inclinacion minutos gimnasta = quemarCalorias gimnasta (promedioSegunInclinacion inclinacion minutos)
+
+montania :: Inclinacion -> Ejercicio
+montania inclinacion minutos  = flip quemarCalorias (promedioMontania inclinacion minutos).(tonificar 1)
+
+promedioCantidadMinutos :: CantMinutos -> Float
+promedioCantidadMinutos cantidadMinutos = cantidadMinutos * 5
+
+promedioSegunVelocidadMaxima :: CantMinutos -> Float
+promedioSegunVelocidadMaxima min = min * (6+(min/5)/2)
+
+tonificar :: Float -> Gimnasta -> Gimnasta
+tonificar cantidad gimnasta = gimnasta {coefTonificacion = coefTonificacion gimnasta + cantidad}
+
+cantidadATonificar :: Float -> Float -> Float
+cantidadATonificar kg minutos 
+    | minutos > 10 = kg / 10
+    | otherwise = 0
+
+promedioSegunInclinacion :: Inclinacion -> CantMinutos -> Float
+promedioSegunInclinacion inclinacion cantMinutos = 2*inclinacion*cantMinutos
+
+promedioMontania :: Inclinacion -> CantMinutos -> Float
+promedioMontania inclinacion minutos = (2*(minutos/2)*inclinacion) + (2*(minutos/2)*(inclinacion+3))
