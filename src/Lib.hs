@@ -8,6 +8,7 @@ data Gimnasta = Gimnasta {
     coefTonificacion :: Float
 } deriving (Show, Eq)
 
+
 pancho :: Gimnasta
 pancho = Gimnasta "Francisco" 40.0 120.0 1.0
 andres :: Gimnasta
@@ -43,7 +44,7 @@ cuentaRara :: Float -> Gimnasta -> Float
 cuentaRara calorias (Gimnasta _ edad peso _) = calorias / (edad * peso)
 
 disminuirCalorias :: Float -> Gimnasta -> Gimnasta
-disminuirCalorias cantidad gimnasta  = gimnasta {peso = peso gimnasta - (cantidad * 1.0) }
+disminuirCalorias cantidad gimnasta  = gimnasta {peso = peso gimnasta - cantidad  }
 
 caloriasObeso :: Float -> Float
 caloriasObeso cantidad =  cantidad / 150
@@ -87,4 +88,20 @@ promedioSegunInclinacion :: Inclinacion -> CantMinutos -> Float
 promedioSegunInclinacion inclinacion cantMinutos = 2*inclinacion*cantMinutos
 
 promedioMontania :: Inclinacion -> CantMinutos -> Float
-promedioMontania inclinacion minutos = (2*(minutos/2)*inclinacion) + (2*(minutos/2)*(inclinacion+3))
+promedioMontania inclinacion minutos = (2*inclinacion*(minutos/2)) + (2*(inclinacion+3)*(minutos/2))
+
+--PUNTO 4
+
+data Rutina = Rutina {
+      nombreRutina :: String,
+      duracion :: Float,
+      ejercicios :: [Ejercicio]
+      } deriving (Show, Eq)
+
+gimnastaLuegoDeHacerRutina :: Rutina -> Gimnasta -> Gimnasta
+gimnastaLuegoDeHacerRutina rutina gimnasta = 
+
+
+
+aplicarEjercicio :: [Ejercicio] -> Gimnasta -> Gimnasta
+aplicarEjercicio ejercicios gimnasta = 
