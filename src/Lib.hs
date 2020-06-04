@@ -92,16 +92,17 @@ promedioMontania inclinacion minutos = (2*inclinacion*(minutos/2)) + (2*(inclina
 
 --PUNTO 4
 
-data Rutina = Rutina {
+{-data Rutina = Rutina {
       nombreRutina :: String,
       duracion :: Float,
       ejercicios :: [Ejercicio]
       } deriving (Show, Eq)
+-}
 
-gimnastaLuegoDeHacerRutina :: Rutina -> Gimnasta -> Gimnasta
-gimnastaLuegoDeHacerRutina rutina gimnasta = 
+--gimnastaLuegoDeHacerRutina :: Rutina -> Gimnasta -> Gimnasta
+--1gimnastaLuegoDeHacerRutina rutina gimnasta = 
 
 
 
-aplicarEjercicio :: [Ejercicio] -> Gimnasta -> Gimnasta
-aplicarEjercicio ejercicios gimnasta = 
+--aplicarEjercicio :: [Ejercicio] -> Gimnasta -> Gimnasta
+--1aplicarEjercicio ejercicios gimnasta = 
