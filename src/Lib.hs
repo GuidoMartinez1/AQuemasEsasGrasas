@@ -92,17 +92,37 @@ promedioMontania inclinacion minutos = (2*inclinacion*(minutos/2)) + (2*(inclina
 
 --PUNTO 4
 
-{-data Rutina = Rutina {
+data Rutina = Rutina {
       nombreRutina :: String,
-      duracion :: Float,
+      duracionTotal :: Float,
       ejercicios :: [Ejercicio]
-      } deriving (Show, Eq)
--}
+      } deriving (Show)
 
---gimnastaLuegoDeHacerRutina :: Rutina -> Gimnasta -> Gimnasta
---1gimnastaLuegoDeHacerRutina rutina gimnasta = 
+duracionPorEjercicio :: Float -> [Ejercicio] -> Float
+duracionPorEjercicio duracionTotal ejercicios= (/) duracionTotal 5 --hardcodie el 5 porque me rompe si uso length de la lista de ejercicios
+
+--type Ejercicio = CantMinutos -> Gimnasta -> Gimnasta
+--RECURSIVIDAD
+
+gimnastaLuegoDeHacerRutina :: Rutina -> Gimnasta -> Gimnasta
+gimnastaLuegoDeHacerRutina rutina gimnasta = aplicarEjercicio (duracionPorEjercicio (duracionTotal rutina) (ejercicios rutina)) (ejercicios rutina)  gimnasta
+
+aplicarEjercicio :: Float -> [Ejercicio] -> Gimnasta -> Gimnasta
+aplicarEjercicio _ [] gimnasta = gimnasta
+aplicarEjercicio duracion (ejercicio:ejercicios) gimnasta = (aplicarEjercicio duracion ejercicios) (ejercicio duracion gimnasta )
+
+--FOLD
+
+gimnastaLuegoDeHacerRutina' :: Rutina -> Gimnasta -> Gimnasta
+gimnastaLuegoDeHacerRutina' rutina gimnasta = foldr ($) gimnasta (aplicarARutina rutina)
+
+aplicarARutina :: Rutina -> [Gimnasta -> Gimnasta]
+aplicarARutina (Rutina _ duracionTotal ejercicios)= map (\ej-> ej (duracionPorEjercicio duracionTotal ejercicios)) ejercicios
 
 
+--4 B me da alta paja
 
---aplicarEjercicio :: [Ejercicio] -> Gimnasta -> Gimnasta
---1aplicarEjercicio ejercicios gimnasta = 
+--PUNTO 5
+
+puedenLlevarASaludable :: [Rutina] -> Gimnasta-> [Rutina]
+puedenLlevarASaludable rutinas unGimnasta= filter (\rutina -> saludable (gimnastaLuegoDeHacerRutina rutina unGimnasta))  rutinas
